@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Favorite Person 🥺💖</title>
+  
+  <!-- Canvas Confetti Library for Celebration Effects -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts for Cute Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 50%, #fecfef 100%);
+      background-size: 200% 200%;
+      animation: gradientBg 10s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Heart & Sparkle Background Particles */
+    .bg-heart {
+      position: absolute;
+      color: rgba(255, 105, 180, 0.4);
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(0.5) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Main Glassmorphism Card Container */
+    .card {
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      padding: 35px 25px;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(255, 105, 180, 0.25);
+      position: relative;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .bear-badge {
+      position: absolute;
+      top: -25px;
+      right: 20px;
+      background: #fff;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .emoji-box {
+      font-size: 70px;
+      margin-bottom: 10px;
+      display: inline-block;
+      animation: bounce 2s infinite;
+      filter: drop-shadow(0 8px 10px rgba(255, 105, 180, 0.3));
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-16px); }
+      60% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-family: 'Fredoka', cursive;
+      color: #ff3366;
+      font-size: 28px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .sub-title {
+      color: #ff5e7e;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    /* Message Card Highlight */
+    .highlight-box {
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe6ea 100%);
+      border: 2px dashed #ff8da1;
+      border-radius: 20px;
+      padding: 18px 15px;
+      margin: 18px 0;
+      color: #4a4a4a;
+      font-size: 15px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .highlight-box p {
+      margin-bottom: 10px;
+    }
+
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+      font-weight: 700;
+      color: #e6004c;
+    }
+
+    .promise-tag {
+      display: inline-block;
+      background: #ff4d6d;
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    /* Buttons Layout */
+    .btn-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 25px;
+      position: relative;
+      min-height: 60px;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      font-size: 15px;
+      font-weight: 800;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-yes {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 25px rgba(255, 65, 108, 0.4);
+    }
+
+    .btn-no {
+      background: #e0e0e0;
+      color: #666;
+      position: relative;
+      transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
+    }
+
+    /* Success Pop-up Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 28px;
+      padding: 35px 25px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.7);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-emoji {
+      font-size: 65px;
+      margin-bottom: 15px;
+    }
+
+    .modal-title {
+      font-family: 'Fredoka', cursive;
+      color: #ff3366;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .modal-text {
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .modal-btn {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Heart Background Particles -->
+  <div id="heart-container"></div>
+
+  <!-- Main Apology Card -->
+  <div class="card">
+    <div class="bear-badge">🧸</div>
+    <div class="emoji-box" id="mainEmoji">🥺👉👈</div>
+    
+    <h1>For My Favorite Person ✨</h1>
+    <div class="sub-title">I'm So Sorry! Can you forgive me? 🌸</div>
+
+    <div class="highlight-box">
+      <span class="promise-tag"><i class="fa-solid fa-sparkles"></i> Promise For You</span>
+      <p>I'm really sorry if I made you sad or upset. I never meant to worry you at all! You mean so much to me. 🥺💖</p>
+      <p>Please don't overthink things anymore. I promise you, I'm really only chatting with you and no one else! You're truly my favorite person to talk to. ✨</p>
+    </div>
+
+    <div class="btn-area">
+      <button class="btn btn-yes" onclick="celebrateForgiveness()">
+        Yes, Forgive You! 💗
+      </button>
+      <button class="btn btn-no" id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">
+        No 🙈
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Modal Popup -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="modal-emoji">🥰🎉</div>
+      <div class="modal-title">Yay! You're The Best!</div>
+      <div class="modal-text">
+        Thank you so much! You made my heart so happy. I promise to make it up to you! <br><br>
+        <strong>Unlimited hugs & sweet moments for us! 🤗💖✨</strong>
+      </div>
+      <button class="modal-btn" onclick="closeModal()">You're Special To Me! ✨</button>
+    </div>
+  </div>
+
+  <script>
+    // Create floating background particles
+    function createBackgroundHearts() {
+      const container = document.getElementById('heart-container');
+      const heartIcons = ['💖', '🌸', '✨', '💕', '🧸', '💗'];
+      
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'bg-heart';
+        heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        container.appendChild(heart);
+      }
+    }
+    createBackgroundHearts();
+
+    // Dodging "No" button logic
+    let noClickCount = 0;
+    function dodgeButton() {
+      const btn = document.getElementById('noBtn');
+      
+      const maxOffset = 130;
+      const randomX = (Math.random() - 0.5) * maxOffset * 2;
+      const randomY = (Math.random() - 0.5) * maxOffset * 2;
+
+      btn.style.position = 'relative';
+      btn.style.left = `${randomX}px`;
+      btn.style.top = `${randomY}px`;
+
+      noClickCount++;
+      
+      const responseTexts = ["Are you sure? 🥺", "Pretty please? 🌸", "You can't say no! 😜", "Click Yes please! 💖"];
+      if (noClickCount <= responseTexts.length) {
+        btn.innerText = responseTexts[noClickCount - 1];
+      }
+    }
+
+    // Celebration Action
+    function celebrateForgiveness() {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+
+      setTimeout(() => {
+        confetti({ particleCount: 80, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 80, angle: 120, spread: 55, origin: { x: 1 } });
+      }, 250);
+
+      document.getElementById('mainEmoji').innerText = '🥰💖';
+      document.getElementById('successModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('successModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
